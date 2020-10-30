@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
   root: true,
@@ -10,12 +10,12 @@ module.exports = {
       legacyDecorators: true
     }
   },
-  plugins: [
-    'ember'
-  ],
+  plugins: ['ember'],
   extends: [
     'eslint:recommended',
-    'plugin:ember/recommended'
+    'plugin:ember/recommended',
+    'plugin:prettier/recommended',
+    'prettier-standard'
   ],
   env: {
     browser: true
@@ -29,6 +29,7 @@ module.exports = {
         '.template-lintrc.js',
         'ember-cli-build.js',
         'testem.js',
+        'app/tailwind.config.js',
         'blueprints/*/index.js',
         'config/**/*.js',
         'lib/*/index.js',
@@ -50,4 +51,4 @@ module.exports = {
       }
     }
   ]
-};
+}

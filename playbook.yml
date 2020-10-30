@@ -1,0 +1,46 @@
+---
+- name: web application deploy
+  hosts: west
+  remote_user: hank
+  vars:
+    branch: "daddy"
+    homedir: "/home/{{ user }}"
+    org: ballPointPenguin
+    repo: benrosas
+    user: hank
+    workdir: "{{ homedir }}/code/src/github.com/{{ org }}/{{ repo }}"
+  tasks:
+    - name: ensure workdir parent dir is present
+      file:
+        path: "{{ homedir }}/code/src/github.com/{{ org }}"
+        state: directory
+
+    - name: clone or update repo
+      git:
+        dest: "{{ workdir }}"
+        repo: "https://github.com/{{ org }}/{{ repo }}.git"
+        update: yes
+        version: "{{ branch }}"
+
+    - name: build docker image
+      docker_image:
+        force_source: yes
+        name: benrosas
+        source: build
+        tag: latest
+        build:
+          path: "{{ workdir }}"
+          pull: no
+
+    - name: run docker container
+      docker_container:
+        image: benrosas:latest
+        name: benrosas
+        restart_policy: always
+        expose:
+          - 80
+        env:
+          HSTS: "off"
+          LETSENCRYPT_HOST: "benrosas.com,www.benrosas.com"
+          PORT: "80"
+          VIRTUAL_HOST: "benrosas.com,www.benrosas.com"
