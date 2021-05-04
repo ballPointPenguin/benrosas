@@ -14,8 +14,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:ember/recommended',
-    'plugin:prettier/recommended',
-    'prettier-standard'
+    'plugin:prettier/recommended'
   ],
   env: {
     browser: true
@@ -26,14 +25,16 @@ module.exports = {
     {
       files: [
         '.eslintrc.js',
+        '.prettierrc.js',
         '.template-lintrc.js',
-        'ember-cli-build.js',
-        'testem.js',
         'app/tailwind.config.js',
         'blueprints/*/index.js',
         'config/**/*.js',
+        'ember-cli-build.js',
+        'fastboot-server.js',
         'lib/*/index.js',
-        'server/**/*.js'
+        'server/**/*.js',
+        'testem.js'
       ],
       parserOptions: {
         sourceType: 'script'
