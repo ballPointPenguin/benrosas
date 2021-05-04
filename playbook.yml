@@ -30,7 +30,7 @@
         tag: latest
         build:
           path: "{{ workdir }}"
-          pull: no
+          pull: yes
 
     - name: run docker container
       docker_container:
